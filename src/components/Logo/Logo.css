@@ -1,0 +1,5 @@
+.Tilt {
+  /* background: linear-gradient(to right, rgb(0, 255, 55), rgb(255, 255, 255)); */
+  background: linear-gradient(to right, red, rgb(12, 12, 204));
+  background-size: cover;
+}
