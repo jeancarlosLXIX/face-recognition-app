@@ -1,5 +1,19 @@
 .Tilt {
   /* background: linear-gradient(to right, rgb(0, 255, 55), rgb(255, 255, 255)); */
-  background: linear-gradient(to right, red, rgb(12, 12, 204));
-  background-size: cover;
+  background: linear-gradient(-45deg, red, transparent);
+  background-size: 400% 400%;
+  position: relative;
+  animation: animationLogo 3.5s ease-in-out infinite;
+}
+
+@keyframes animationLogo{
+  0%{
+    background-position: 0 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0 50%;
+  }
 }
