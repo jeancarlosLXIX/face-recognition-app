@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Navegation from './components/Navegation/Navegation';
+import Navegation from './components/navegation/Navegation';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Registrer';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
@@ -10,7 +12,7 @@ import Clarifai from 'clarifai'
 import './App.css';
 
 const app = new Clarifai.App({
-    apiKey: 'you know where it is'
+    apiKey: '3b08cd6752db4692a682779c8c0e3916'
 })
 
 const paramsOptions = {
@@ -73,7 +75,8 @@ class App extends Component {
         this.state = {
             input: '',
             imageURL: '',
-            box: {}
+            box: {},
+            route: 'signin'
         };
     };
 
@@ -111,22 +114,34 @@ class App extends Component {
         .catch(err => console.log(err))
     }
 
-        
+        onRouteChange = (route) => {
+            this.setState({route: route})
+        }
     
 
     render() {
         return (
             <div className="App">
                 <Particles params={paramsOptions} className="particles" />
-                <Navegation />
+                <Navegation onRouteChange={this.onRouteChange}/>
+                { this.state.route === 'home'
+                ? <div> 
                 <Logo />
                 <Rank />
                 <ImageLinkForm
                     onInputChange={this.onInputChange}
                     submitButton={this.submitButton}
                 />
-
                 <FaceRecognition imageURL={this.state.imageURL} box={this.state.box}/>
+                </div>
+                
+                : (
+                    this.state.route === 'signin'
+                    ?<Signin onRouteChange={this.onRouteChange}/>
+                    :<Register onRouteChange={this.onRouteChange}/>
+                )
+                //because there are multiple elements we use return them in a div 
+                } 
             </div>
         );
     }
