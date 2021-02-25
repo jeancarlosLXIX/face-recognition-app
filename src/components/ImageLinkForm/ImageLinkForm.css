@@ -1,8 +1,18 @@
+:root {
+  --clr-pr: #5489c5;
+  --clr-sg: #e434e4;
+}
+
+/*var(--clr-pr)*/
+
 .form {
   width: 700px;
-  background: linear-gradient(315deg, transparent 75%, #d45d55 0)-10px 0,
-    linear-gradient(45deg, transparent 75%, #d45d55 0)-10px 0,
-    linear-gradient(135deg, #a7332b 50%, transparent 0) 0 0,
-    linear-gradient(45deg, #6a201b 50%, #561a16 0) 0 0 #561a16;
-  background-size: 20px 20px;
+  background-color: #e5e5f7;
+  opacity: 0.6;
+  background: linear-gradient(135deg, #d81b1b55 25%, transparent 25%) -12px 0/
+      24px 24px,
+    linear-gradient(225deg, var(--clr-pr) 25%, transparent 25%) -12px 0/ 24px
+      24px,
+    linear-gradient(315deg, var(--clr-pr) 25%, transparent 25%) 0px 0/ 24px 24px,
+    linear-gradient(45deg, var(--clr-pr) 25%, #e5e5f7 25%) 0px 0/ 24px 24px;
 }
