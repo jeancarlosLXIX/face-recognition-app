@@ -1,6 +1,6 @@
 import React from 'react';
 import Tilt from 'react-tilt'; //https://www.npmjs.com/package/react-tilt
-import logoIMG from './brain(1).png'
+import logoIMG from './brain(2).png'
 import './Logo.css'
 
 const Logo = () => {

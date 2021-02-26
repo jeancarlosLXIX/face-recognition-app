@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Navegation from './components/navegation/Navegation';
+import Navegation from './components/Navegation/Navegation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Registrer';
 import Logo from './components/Logo/Logo';
@@ -12,7 +12,7 @@ import Clarifai from 'clarifai'
 import './App.css';
 
 const app = new Clarifai.App({
-    apiKey: '3b08cd6752db4692a682779c8c0e3916'
+    apiKey: ''
 })
 
 const paramsOptions = {
@@ -76,7 +76,8 @@ class App extends Component {
             input: '',
             imageURL: '',
             box: {},
-            route: 'signin'
+            route: 'signin',
+            isSignIn: 'false'
         };
     };
 
@@ -115,16 +116,25 @@ class App extends Component {
     }
 
         onRouteChange = (route) => {
+            if(route === 'signout'){
+                this.setState({isSignIn: false})
+            } else if(route === 'home'){
+                this.setState({isSignIn: true})
+            }
             this.setState({route: route})
         }
     
 
     render() {
+        //to make our code clean here we'll use destructuring so we don't need to use this.state.propertyName
+       const  {imageURL, box, isSignIn, route} = this.state;
         return (
             <div className="App">
                 <Particles params={paramsOptions} className="particles" />
-                <Navegation onRouteChange={this.onRouteChange}/>
-                { this.state.route === 'home'
+                <Navegation 
+                isSignIn={isSignIn}
+                onRouteChange={this.onRouteChange}/>
+                { route === 'home'
                 ? <div> 
                 <Logo />
                 <Rank />
@@ -132,11 +142,11 @@ class App extends Component {
                     onInputChange={this.onInputChange}
                     submitButton={this.submitButton}
                 />
-                <FaceRecognition imageURL={this.state.imageURL} box={this.state.box}/>
+                <FaceRecognition imageURL={imageURL} box={box}/>
                 </div>
                 
                 : (
-                    this.state.route === 'signin'
+                    route === 'signin'
                     ?<Signin onRouteChange={this.onRouteChange}/>
                     :<Register onRouteChange={this.onRouteChange}/>
                 )
