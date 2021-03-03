@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Navegation from './components/Navegation/Navegation';
+import Navegation from './components/navegation/Navegation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Registrer';
 import Logo from './components/Logo/Logo';
