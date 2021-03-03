@@ -12,7 +12,7 @@ import Clarifai from 'clarifai'
 import './App.css';
 
 const app = new Clarifai.App({
-    apiKey: ''
+    
 })
 
 const paramsOptions = {
@@ -77,7 +77,7 @@ class App extends Component {
             imageURL: '',
             box: {},
             route: 'signin',
-            isSignIn: 'false'
+            isSignIn: false
         };
     };
 
