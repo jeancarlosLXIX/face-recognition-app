@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Navegation from './components/navegation/Navegation';
+import Navegation from './components/Navegation/Navegation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Registrer';
 import Logo from './components/Logo/Logo';
@@ -77,9 +77,28 @@ class App extends Component {
             imageURL: '',
             box: {},
             route: 'signin',
-            isSignIn: false
+            isSignIn: false,
+            user: {
+                id: '',
+                name: '',
+                email: '',
+                password: '',
+                entries: 0,
+                joined: ''
+            }
         };
     };
+
+    loadUser = data =>{
+        this.setState({user:{
+                id: data.id,
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                entries: data.entries,
+                joined: data.joined
+        }})
+    }
 
     calculeteFaceLocation = data => {
         const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -137,7 +156,7 @@ class App extends Component {
                 { route === 'home'
                 ? <div> 
                 <Logo />
-                <Rank />
+                <Rank name={this.state.user.name} entries={this.state.user.entries}/>
                 <ImageLinkForm
                     onInputChange={this.onInputChange}
                     submitButton={this.submitButton}
@@ -147,8 +166,8 @@ class App extends Component {
                 
                 : (
                     route === 'signin'
-                    ?<Signin onRouteChange={this.onRouteChange}/>
-                    :<Register onRouteChange={this.onRouteChange}/>
+                    ?<Signin onRouteChange={this.onRouteChange}  loadUser={this.loadUser}/>
+                    :<Register onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
                 )
                 //because there are multiple elements we use return them in a div 
                 } 
