@@ -18,7 +18,7 @@ const app = new Clarifai.App({
 const paramsOptions = {
     "particles": {
         "number": {
-            "value": 160,
+            "value": 80,
             "density": {
                 "enable": false
             }
@@ -36,7 +36,7 @@ const paramsOptions = {
         },
         "move": {
             "random": true,
-            "speed": 3,
+            "speed": 5,
             "direction": "top",
             "out_mode": "out"
         }
@@ -130,7 +130,21 @@ class App extends Component {
         .predict(
         Clarifai.FACE_DETECT_MODEL, 
         this.state.input)
-        .then(responde => this.displayFaceBox(this.calculeteFaceLocation(responde)))
+        .then(responde => {
+            fetch('http://localhost:3001/image',{
+                method: 'put',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    id: this.state.user.id
+                })
+            })
+            .then(response => response.json())
+            .then(count => {
+                console.log('this is count: ', count);
+                return this.setState(Object.assign(this.state.user, {entries: count}))
+            })
+            this.displayFaceBox(this.calculeteFaceLocation(responde))
+        })
         .catch(err => console.log(err))
     }
 
