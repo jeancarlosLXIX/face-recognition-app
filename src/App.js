@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Navegation from './components/Navegation/Navegation';
+import Navegation from './components/navegation/Navegation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Registrer';
 import Logo from './components/Logo/Logo';
@@ -8,12 +8,10 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai'
+
 import './App.css';
 
-const app = new Clarifai.App({
-    
-})
+
 
 const paramsOptions = {
     "particles": {
@@ -67,26 +65,26 @@ const paramsOptions = {
     }
 }
 
-/* Particles maybe will be delete, I'll see later*/
+const initialState = {
+        input: '',
+        imageURL: '',
+        box: {},
+        route: 'signin',
+        isSignIn: false,
+        user: {
+            id: '',
+            name: '',
+            email: '',
+            password: '',
+            entries: 0,
+            joined: ''
+        }
+    };
 
 class App extends Component {
     constructor() {
         super()
-        this.state = {
-            input: '',
-            imageURL: '',
-            box: {},
-            route: 'signin',
-            isSignIn: false,
-            user: {
-                id: '',
-                name: '',
-                email: '',
-                password: '',
-                entries: 0,
-                joined: ''
-            }
-        };
+        this.state = initialState;
     };
 
     loadUser = data =>{
@@ -126,10 +124,14 @@ class App extends Component {
 
     submitButton = () => {
         this.setState({imageURL: this.state.input})
-        app.models
-        .predict(
-        Clarifai.FACE_DETECT_MODEL, 
-        this.state.input)
+        fetch('http://localhost:3001/imageurl',{
+                method: 'post',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    input: this.state.input
+                })
+            })
+        .then(response => response.json())
         .then(responde => {
             fetch('http://localhost:3001/image',{
                 method: 'put',
@@ -150,7 +152,7 @@ class App extends Component {
 
         onRouteChange = (route) => {
             if(route === 'signout'){
-                this.setState({isSignIn: false})
+                this.setState(initialState)
             } else if(route === 'home'){
                 this.setState({isSignIn: true})
             }
