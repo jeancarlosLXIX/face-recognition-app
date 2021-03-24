@@ -27,7 +27,7 @@ class Registrer extends Component {
     }
 
     onSubmitSignIn = () =>{
-        fetch('http://localhost:3001/register',{
+        fetch('https://immense-meadow-46158.herokuapp.com/register',{
             //by default fecth makes a get request, we want a post.
             method: 'post',
             headers: {'Content-Type': 'application/json'}, //maybe with s
